@@ -27,5 +27,5 @@ jobs:
         token: ${{ secrets.SONARQUBE_TOKEN }}
         projectName: Demo
         projectKey: demo.github.actions
-        url: https://demosonar.westeurope.cloudapp.azure.com/
+        url: https://demosonar.westeurope.cloudapp.azure.com:9000/
         isCommunityEdition: true
