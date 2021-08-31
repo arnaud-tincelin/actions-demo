@@ -25,7 +25,7 @@ jobs:
     - uses: philips-software/sonar-scanner-action@v1.3.0
       with:
         token: ${{ secrets.SONARQUBE_TOKEN }}
-        projectName: Github Actions Demo
+        projectName: Demo
         projectKey: demo.github.actions
-        url: https://demosonar.westeurope.cloudapp.azure.com
+        url: demosonar.westeurope.cloudapp.azure.com
         isCommunityEdition: true

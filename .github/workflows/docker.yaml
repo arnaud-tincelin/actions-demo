@@ -1,4 +1,4 @@
-name: Release
+name: Docker
 
 on:
   push:
@@ -8,7 +8,7 @@ env:
   GO_VERSION: '1.17'
 
 jobs:
-  release:
+  docker:
     runs-on: ubuntu-latest
     steps:
     - name: Set up Docker Buildx
