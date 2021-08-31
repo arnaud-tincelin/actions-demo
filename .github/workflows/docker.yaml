@@ -25,4 +25,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: demo:latest
+        tags: atincelin/demo:latest
