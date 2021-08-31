@@ -68,3 +68,4 @@ jobs:
           -Dsonar.go.coverage.reportPaths=coverage.out
           -Dsonar.sources=.
           -Dsonar.verbose=true
+          -Dsonar.exclusions=**/*_test.go
