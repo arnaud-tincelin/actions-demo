@@ -6,8 +6,8 @@ env:
   GO_VERSION: '1.17'
 
 jobs:
-  runs-on: ubuntu-latest
   lint:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up Go
@@ -19,6 +19,7 @@ jobs:
         with:
           version: latest
   sonar:
+    runs-on: ubuntu-latest
     name: SonarQube
     steps:
       - uses: philips-software/sonar-scanner-action@v1.3.0
