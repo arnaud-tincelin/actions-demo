@@ -30,19 +30,6 @@ jobs:
       uses: golangci/golangci-lint-action@v2
       with:
         version: latest
-  sonar:
-    needs: [build]
-    runs-on: ubuntu-latest
-    name: SonarQube
-    steps:
-    - uses: actions/checkout@v2
-    - uses: philips-software/sonar-scanner-action@v1.3.0
-      with:
-        token: ${{ secrets.SONARQUBE_TOKEN }}
-        projectName: Demo
-        projectKey: demo.github.actions
-        url: http://demosonar.westeurope.cloudapp.azure.com:9000/
-        isCommunityEdition: true
   test:
     needs: [build]
     runs-on: ubuntu-latest
@@ -56,3 +43,28 @@ jobs:
       run: go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
     - name: Upload coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash) -C $(Build.SourceVersion)
+    - name: Upload coverage
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: coverage.out
+  analysis:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download coverage
+      uses: actions/download-artifact@v2
+      with:
+        name: coverage
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+        SONAR_HOST_URL: http://demosonar.westeurope.cloudapp.azure.com:9000/
+      with:
+        args: >
+          -Dsonar.projectKey=demo.github.actions
+          -Dsonar.go.coverage.reportPaths=coverage.out
+          -Dsonar.sources=.
+          -Dsonar.verbose=true
