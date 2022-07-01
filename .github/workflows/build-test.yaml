@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        echo "my secret is ${{ secrets.JSON }}"
         toto=`echo '{}' | jq '. +  {"helloe":"toto"}'`
         toto=`echo $toto | jq '. + {"helloe2":"toto2"}'`
         echo $toto
