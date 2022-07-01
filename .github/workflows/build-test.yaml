@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - run: |
+        toto=`echo '{}' | jq '. +  {"helloe":"toto"}'`
+        toto=`echo $toto | jq '. + {"helloe2":"toto2"}'`
+        echo $toto
     - uses: actions/checkout@v2
     - name: Set up Go
       uses: actions/setup-go@v2
